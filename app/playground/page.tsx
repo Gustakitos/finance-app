@@ -17,10 +17,10 @@ export default function Playground() {
         <h2 className="mb-4 text-lg font-mono">Trend</h2>
         <hr className="mb-4 border-gray-200 dark:border-gray-800" />
         <div className="flex space-x-4">
-          <Trend type={TrendEnum.Income} amount={1000} prevAmount={0} />
-          <Trend type={TrendEnum.Expense} amount={12000} prevAmount={0} />
-          <Trend type={TrendEnum.Investment} amount={7000} prevAmount={0} />
-          <Trend type={TrendEnum.Savings} amount={500} prevAmount={0} />
+          <Trend type={TrendEnum.Income} amount={1000} prevAmount={900} />
+          <Trend type={TrendEnum.Expense} amount={12000} prevAmount={10000} />
+          <Trend type={TrendEnum.Investment} amount={7000} prevAmount={11100} />
+          <Trend type={TrendEnum.Savings} amount={500} prevAmount={950} />
         </div>
       </div>
     </main>
