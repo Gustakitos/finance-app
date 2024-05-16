@@ -4,6 +4,9 @@ import { TrendEnum } from "@/components/constants";
 import TransactionItem from "@/components/transaction-item";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Button from "@/components/button";
+import Label from "@/components/label";
+import Input from "@/components/input";
+import Select from "@/components/select";
 
 export default function Playground() {
   return (
@@ -63,7 +66,9 @@ export default function Playground() {
         </div>
 
         <div>
-          <h2 className="mb-4 text-lg font-mono">Transaction Summary Item +Transaction Summary Item</h2>
+          <h2 className="mb-4 text-lg font-mono">
+            Transaction Summary Item +Transaction Summary Item
+          </h2>
           <hr className="mb-4 border-gray-200 dark:border-gray-800" />
           <div className="space-y-4">
             <TransactionSummaryItem date="2024-05-01" amount={3500} />
@@ -107,8 +112,6 @@ export default function Playground() {
             <Button size="xs">Hello</Button>
             <Button size="sm">Hello</Button>
             <Button size="lg">Hello</Button>
-
-
           </div>
         </div>
 
@@ -116,26 +119,27 @@ export default function Playground() {
           <h2 className="mb-4 text-lg font-mono">Forms</h2>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-gray-700 dark:text-gray-300 block mb-1">Your name</label>
-              <input
-              placeholder="Type something."
-                type="text" 
-                className="w-full rounder-md shadow-sm border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-950" />
+              <label className="text-gray-700 dark:text-gray-300 block mb-1">
+                Your name
+              </label>
+              <Input type="text" placeholder="Type something." />
             </div>
             <div>
-              <label className="text-gray-700 dark:text-gray-300 block mb-1">City selection</label>
-              <select 
-                className="w-full rounder-md shadow-sm border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-950">
-                <option>A</option>    
-                <option>B</option>    
-                <option>C</option>    
-              </select>
+              <Label>
+                City selection
+              </Label>
+              <Select>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </Select>
             </div>
 
             <div className="flex items-center">
-              <input type="checkbox"
-                className="rounded border-gray-300 text-gray-700 bg-white dark:bg-gray-950 dark:text-gray-500 shadow-sm"/>
-              <label className="text-gray-700 dark:text-gray-300 mb-2">City</label>
+              <Input type="checkbox" id="terms" />
+              <Label className={"ml-2"} htmlFor={"terms"}>
+                Accept terms
+              </Label>
             </div>
           </div>
         </div>
