@@ -1,16 +1,16 @@
 interface LabelProps {
-  className: string;
+  className?: string;
+  htmlFor?: string;
+  children: React.ReactNode;
 }
 
-export default function Label(props) {
+export default function Label(props: LabelProps) {
   return (
     <>
       <label
         {...props}
         className={`text-gray-700 dark:text-gray-300 ${props.className}`}
-      >
-        {props.children}
-      </label>
+      ></label>
     </>
   );
 }

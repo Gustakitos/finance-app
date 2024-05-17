@@ -1,0 +1,24 @@
+"use client"
+
+import { useState } from 'react'
+import { useCookies } from 'react-cookie'
+
+export default function useDarkMode(defaultTheme = 'dark'): {
+  theme: string;
+  toggleTheme: () => void
+} {
+  const [theme, setTheme] = useState(defaultTheme)
+  const [_, setCookie] = useCookies(['theme'])
+
+  const setAndSaveTheme = (theme: string) => {
+    setTheme(theme)
+    document.documentElement.classList.remove('light', 'dark')
+    document.documentElement.classList.add(theme)
+    setCookie('theme', theme)
+  }
+  const toggleTheme = () => {
+    setAndSaveTheme(theme === 'dark' ? 'light' : 'dark')
+  }
+
+  return { theme, toggleTheme }
+}

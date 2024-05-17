@@ -1,6 +1,6 @@
 import Trend from "@/components/trend";
 import PageHeader from "../../components/page-header";
-import { TrendEnum } from "@/components/constants";
+import { InputType, SizesEnum, TrendEnum, VariantsEnum } from "@/components/constants";
 import TransactionItem from "@/components/transaction-item";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Button from "@/components/button";
@@ -106,12 +106,12 @@ export default function Playground() {
           <hr className="mb-4 border-gray-200 dark:border-gray-800" />
           <div className="space-x-4">
             <Button>Hello</Button>
-            <Button variant="outline">Hello</Button>
-            <Button variant="ghost">Hello</Button>
+            <Button variant={VariantsEnum.Outline}>Hello</Button>
+            <Button variant={VariantsEnum.Ghost}>Hello</Button>
 
-            <Button size="xs">Hello</Button>
-            <Button size="sm">Hello</Button>
-            <Button size="lg">Hello</Button>
+            <Button size={SizesEnum.xs}>Hello</Button>
+            <Button size={SizesEnum.sm}>Hello</Button>
+            <Button size={SizesEnum.lg}>Hello</Button>
           </div>
         </div>
 
@@ -122,7 +122,7 @@ export default function Playground() {
               <label className="text-gray-700 dark:text-gray-300 block mb-1">
                 Your name
               </label>
-              <Input type="text" placeholder="Type something." />
+              <Input type={InputType.text} placeholder="Type something." />
             </div>
             <div>
               <Label>
@@ -136,7 +136,7 @@ export default function Playground() {
             </div>
 
             <div className="flex items-center">
-              <Input type="checkbox" id="terms" />
+              <Input type={InputType.checkbox} id="terms" />
               <Label className={"ml-2"} htmlFor={"terms"}>
                 Accept terms
               </Label>
