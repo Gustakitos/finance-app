@@ -2,6 +2,7 @@ import TransactionItem from "@/components/transaction-item";
 import { GroupedTransactions, HOST, Transaction } from "../constants/types";
 import { TrendEnum } from "@/components/constants";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
+import Separator from "@/components/separator";
 
 const groupAndSumTransactionsByDate = (transactions: Transaction[]) => {
   const grouped: GroupedTransactions = {};
@@ -36,7 +37,7 @@ export default async function TransactionsList() {
         ([date, { transactions, amount }]) => (
           <div key={date}>
             <TransactionSummaryItem date={date} amount={amount} />
-            <hr className="my-4 border-gray-200 dark:border-gray-800" />
+            <Separator />
             <section className="space-y-4">
               {transactions.map((transaction) => (
                 <div key={transaction.id}>

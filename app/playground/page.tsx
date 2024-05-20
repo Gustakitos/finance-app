@@ -1,12 +1,19 @@
 import Trend from "@/components/trend";
 import PageHeader from "../../components/page-header";
-import { InputType, SizesEnum, TrendEnum, VariantsEnum } from "@/components/constants";
+import {
+  InputType,
+  SizesEnum,
+  TrendEnum,
+  VariantsEnum,
+} from "@/components/constants";
 import TransactionItem from "@/components/transaction-item";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Button from "@/components/button";
 import Label from "@/components/label";
 import Input from "@/components/input";
 import Select from "@/components/select";
+import Separator from "@/components/separator";
+import Skeleton from "@/components/skeleton";
 
 export default function Playground() {
   return (
@@ -15,13 +22,13 @@ export default function Playground() {
 
       <div>
         <h2 className="mb-4 text-lg font-mono">Page header</h2>
-        <hr className="mb-4 border-gray-200 dark:border-gray-800" />
+        <Separator />
         <div>
           <PageHeader className="" />
         </div>
         <div>
           <h2 className="mb-4 text-lg font-mono">Trend</h2>
-          <hr className="mb-4 border-gray-200 dark:border-gray-800" />
+          <Separator />
           <div className="flex space-x-8">
             <Trend type={TrendEnum.Income} amount={1000} prevAmount={900} />
             <Trend type={TrendEnum.Expense} amount={12000} prevAmount={10000} />
@@ -36,7 +43,7 @@ export default function Playground() {
 
         <div>
           <h2 className="mb-4 text-lg font-mono">TransactionItem</h2>
-          <hr className="mb-4 border-gray-200 dark:border-gray-800" />
+          <Separator />
           <div className="space-y-4">
             <TransactionItem
               type={TrendEnum.Income}
@@ -69,10 +76,10 @@ export default function Playground() {
           <h2 className="mb-4 text-lg font-mono">
             Transaction Summary Item +Transaction Summary Item
           </h2>
-          <hr className="mb-4 border-gray-200 dark:border-gray-800" />
+          <Separator />
           <div className="space-y-4">
             <TransactionSummaryItem date="2024-05-01" amount={3500} />
-            <hr className="mb-4 border-gray-200 dark:border-gray-800" />
+            <Separator />
 
             <TransactionItem
               type={TrendEnum.Income}
@@ -103,7 +110,7 @@ export default function Playground() {
 
         <div>
           <h2 className="mb-4 text-lg font-mono">Buttons</h2>
-          <hr className="mb-4 border-gray-200 dark:border-gray-800" />
+          <Separator />
           <div className="space-x-4">
             <Button>Hello</Button>
             <Button variant={VariantsEnum.Outline}>Hello</Button>
@@ -125,9 +132,7 @@ export default function Playground() {
               <Input type={InputType.text} placeholder="Type something." />
             </div>
             <div>
-              <Label>
-                City selection
-              </Label>
+              <Label>City selection</Label>
               <Select>
                 <option>A</option>
                 <option>B</option>
@@ -140,6 +145,23 @@ export default function Playground() {
               <Label className={"ml-2"} htmlFor={"terms"}>
                 Accept terms
               </Label>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h2 className="mb-4 text-lg font-mono">Loading Skeleton</h2>
+          <div className="space-y-8">
+            <div className="flex space-x-4">
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+            </div>
+
+            <div className="space-y-4">
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
             </div>
           </div>
         </div>
