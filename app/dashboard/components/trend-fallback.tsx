@@ -11,6 +11,7 @@ export default function TrendFallback() {
       </div>
       <div className="flex space-x-2">
         <Skeleton />
+        <Skeleton />
       </div>
     </div>
   );
