@@ -24,3 +24,12 @@ export enum InputType {
   default = 'default',
   text = 'text'
 }
+
+export enum Categories {
+  Housing = 'Housing',
+  Transport = 'Transport',
+  Health = 'Health',
+  Food = 'Food',
+  Education = 'Education',
+  Other = 'Other'
+}

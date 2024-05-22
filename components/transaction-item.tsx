@@ -1,6 +1,6 @@
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 import { HandCoins, Landmark, PiggyBank, Wallet } from "lucide-react";
-import { TrendEnum } from "./constants";
+import { TrendEnum } from "../lib/constants/constants";
 
 export default function TransactionItem({
   type,

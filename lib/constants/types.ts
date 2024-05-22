@@ -1,4 +1,4 @@
-import { TrendEnum } from "@/components/constants";
+import { TrendEnum } from "./constants";
 
 export const HOST = 'http://localhost:3100';
 

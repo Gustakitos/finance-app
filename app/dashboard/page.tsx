@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import TransactionsList from "./components/transaction-list";
 import TransactionListFallback from "./components/transaction-list-fallback";
-import { TrendEnum } from "@/components/constants";
 import TrendDashboard from "./components/trend";
 import TrendFallback from "./components/trend-fallback";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 import { sizes, variants } from "@/lib/variants";
+import { TrendEnum } from "@/lib/constants/constants";
 
 export default function Dashboard() {
   return (

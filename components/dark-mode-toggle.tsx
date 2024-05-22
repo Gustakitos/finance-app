@@ -3,7 +3,7 @@
 import Button from "./button";
 import useDarkMode from "@/hooks/useDarkMode";
 import { Moon, Sun } from "lucide-react";
-import { SizesEnum, VariantsEnum } from "./constants";
+import { SizesEnum, VariantsEnum } from "../lib/constants/constants";
 
 interface DarkModeToggleProps {
   defaultTheme?: string;

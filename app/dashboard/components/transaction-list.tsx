@@ -1,8 +1,8 @@
 import TransactionItem from "@/components/transaction-item";
-import { GroupedTransactions, HOST, Transaction } from "../constants/types";
-import { TrendEnum } from "@/components/constants";
+import { GroupedTransactions, HOST, Transaction } from "../../../lib/constants/types";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Separator from "@/components/separator";
+import { TrendEnum } from "@/lib/constants/constants";
 
 const groupAndSumTransactionsByDate = (transactions: Transaction[]) => {
   const grouped: GroupedTransactions = {};

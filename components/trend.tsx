@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { TrendEnum } from "./constants";
+import { TrendEnum } from "../lib/constants/constants";
 import { ArrowDownLeft, ArrowUpRight } from "lucide-react";
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
 

@@ -1,11 +1,5 @@
 import Trend from "@/components/trend";
 import PageHeader from "../../components/page-header";
-import {
-  InputType,
-  SizesEnum,
-  TrendEnum,
-  VariantsEnum,
-} from "@/components/constants";
 import TransactionItem from "@/components/transaction-item";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Button from "@/components/button";
@@ -14,6 +8,12 @@ import Input from "@/components/input";
 import Select from "@/components/select";
 import Separator from "@/components/separator";
 import Skeleton from "@/components/skeleton";
+import { Metadata } from "next";
+import { InputType, SizesEnum, TrendEnum, VariantsEnum } from "@/lib/constants/constants";
+
+export const metadata: Metadata = {
+  title: "Playground",
+};
 
 export default function Playground() {
   return (

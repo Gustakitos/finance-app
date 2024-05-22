@@ -1,5 +1,5 @@
 import { MouseEventHandler } from "react";
-import { SizesEnum, VariantsEnum } from "./constants";
+import { SizesEnum, VariantsEnum } from "../lib/constants/constants";
 import { sizes, variants } from "@/lib/variants";
 
 interface BtnProps {
@@ -8,6 +8,8 @@ interface BtnProps {
   children: React.ReactNode;
 
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
+
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
 export default function Button(props: BtnProps) {
