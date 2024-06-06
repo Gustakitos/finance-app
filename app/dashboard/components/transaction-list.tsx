@@ -1,5 +1,5 @@
 import TransactionItem from "@/components/transaction-item";
-import { GroupedTransactions, HOST, Transaction } from "../../../lib/constants/types";
+import { GroupedTransactions, API_HOST, Transaction } from "../../../lib/constants/types";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Separator from "@/components/separator";
 import { TrendEnum } from "@/lib/constants/constants";
@@ -26,7 +26,7 @@ const groupAndSumTransactionsByDate = (transactions: Transaction[]) => {
 };
 
 export default async function TransactionsList() {
-  const response = await fetch(`${HOST}/transactions`);
+  const response = await fetch(`${API_HOST}/transactions`);
   const transactions: Transaction[] = await response.json();
 
   const groupedTransaction = groupAndSumTransactionsByDate(transactions);
