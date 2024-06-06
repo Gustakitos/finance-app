@@ -5,8 +5,10 @@ import Input from "@/components/input";
 import Label from "@/components/label";
 import Select from "@/components/select";
 import { Categories, TrendEnum } from "@/lib/constants/constants";
+import { API_HOST } from "@/lib/constants/types";
 import { transactionSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function TransactionForm() {
@@ -23,7 +25,25 @@ export default function TransactionForm() {
     resolver: zodResolver(transactionSchema)
   });
 
-  const onSubmit = (data: any) => console.log("formData: ", data);
+  const [isSaving, setSaving] = useState(false)
+
+  const onSubmit = async (data: any) => {
+    setSaving(true)
+    try {
+      await fetch(`${API_HOST}/transactions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...data,
+          created_at: `${data.created_at}T00:00:00`
+        })
+      })
+    } finally {
+      setSaving(false)
+    }
+  }
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -87,7 +107,7 @@ export default function TransactionForm() {
       </div>
 
       <div className="flex justify-end">
-        <Button type={"submit"}>Save</Button>
+        <Button type={"submit"} disabled={isSaving}>Save</Button>
       </div>
     </form>
   );

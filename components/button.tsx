@@ -10,6 +10,8 @@ interface BtnProps {
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 
   type?: "button" | "submit" | "reset" | undefined;
+
+  disabled?: boolean;
 }
 
 export default function Button(props: BtnProps) {
