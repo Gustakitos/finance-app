@@ -5,6 +5,8 @@ import Input from "@/components/input";
 import Label from "@/components/label";
 import Select from "@/components/select";
 import { Categories, TrendEnum } from "@/lib/constants/constants";
+import { transactionSchema } from "@/lib/validation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 export default function TransactionForm() {
@@ -18,6 +20,7 @@ export default function TransactionForm() {
     formState: { errors },
   } = useForm({
     mode: "onTouched",
+    resolver: zodResolver(transactionSchema)
   });
 
   const onSubmit = (data: any) => console.log("formData: ", data);
