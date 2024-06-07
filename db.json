@@ -39,6 +39,38 @@
       "description": "Test",
       "created_at": "2024-05-21T00:00:00",
       "id": 5
+    },
+    {
+      "type": "Income",
+      "category": "Health",
+      "amount": 200,
+      "description": "Test #2",
+      "created_at": "2024-05-21T00:00:00",
+      "id": 6
+    },
+    {
+      "type": "Investment",
+      "category": "Other",
+      "amount": 500,
+      "description": "Test #2",
+      "created_at": "2024-05-21T00:00:00",
+      "id": 7
+    },
+    {
+      "type": "Savings",
+      "category": "Other",
+      "amount": 700,
+      "description": "Test #2",
+      "created_at": "2024-05-21T00:00:00",
+      "id": 8
+    },
+    {
+      "type": "Savings",
+      "category": "Other",
+      "amount": 700,
+      "description": "Test #2",
+      "created_at": "2024-05-21T00:00:00",
+      "id": 9
     }
   ],
   "trends": [

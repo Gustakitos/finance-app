@@ -1,13 +1,16 @@
 "use client";
 
 import Button from "@/components/button";
+import FormError from "@/components/form-error";
 import Input from "@/components/input";
 import Label from "@/components/label";
 import Select from "@/components/select";
+import { purgeTransactionListCache } from "@/lib/actions";
 import { Categories, TrendEnum } from "@/lib/constants/constants";
 import { API_HOST } from "@/lib/constants/types";
 import { transactionSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -22,28 +25,31 @@ export default function TransactionForm() {
     formState: { errors },
   } = useForm({
     mode: "onTouched",
-    resolver: zodResolver(transactionSchema)
+    resolver: zodResolver(transactionSchema),
   });
 
-  const [isSaving, setSaving] = useState(false)
+  const router = useRouter();
+  const [isSaving, setSaving] = useState(false);
 
   const onSubmit = async (data: any) => {
-    setSaving(true)
+    setSaving(true);
     try {
       await fetch(`${API_HOST}/transactions`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...data,
-          created_at: `${data.created_at}T00:00:00`
-        })
-      })
+          created_at: `${data.created_at}T00:00:00`,
+        }),
+      });
+      await purgeTransactionListCache();
+      router.push("/dashboard");
     } finally {
-      setSaving(false)
+      setSaving(false);
     }
-  }
+  };
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -73,9 +79,7 @@ export default function TransactionForm() {
             required: "The date is required",
           })}
         />
-        {errors.created_at ? (
-          <p className="mt-1 text-red-500">{errors.created_at.message}</p>
-        ) : null}
+        <FormError error={errors.created_at} />
       </div>
 
       <div>
@@ -88,9 +92,7 @@ export default function TransactionForm() {
             min: { value: 1, message: "Amount must be at least 1" },
           })}
         />
-        {errors.amount ? (
-          <p className="mt-1 text-red-500">{errors.amount.message}</p>
-        ) : null}
+        <FormError error={errors.amount} />
       </div>
 
       <div className="col-span-1 md:col-span-2">
@@ -101,13 +103,13 @@ export default function TransactionForm() {
             required: "The description is required",
           })}
         />
-        {errors.description ? (
-          <p className="mt-1 text-red-500">{errors.description.message}</p>
-        ) : null}
+        <FormError error={errors.description} />
       </div>
 
       <div className="flex justify-end">
-        <Button type={"submit"} disabled={isSaving}>Save</Button>
+        <Button type={"submit"} disabled={isSaving}>
+          Save
+        </Button>
       </div>
     </form>
   );
