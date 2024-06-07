@@ -7,11 +7,12 @@ import {
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Separator from "@/components/separator";
 import { TrendEnum } from "@/lib/constants/constants";
+import { createClient } from "@/lib/supabase/server";
 
-const groupAndSumTransactionsByDate = (transactions: Transaction[]) => {
+const groupAndSumTransactionsByDate = (transactions: Transaction[] | null) => {
   const grouped: GroupedTransactions = {};
 
-  for (const transaction of transactions) {
+  for (const transaction of transactions!) {
     const date = transaction.created_at.split("T")[0];
     if (!grouped[date]) {
       grouped[date] = { transactions: [], amount: 0 };
@@ -30,12 +31,12 @@ const groupAndSumTransactionsByDate = (transactions: Transaction[]) => {
 };
 
 export default async function TransactionsList() {
-  const response = await fetch(`${API_HOST}/transactions`, {
-    next: {
-      tags: ["transaction-list"],
-    },
-  });
-  const transactions: Transaction[] = await response.json();
+  const supabase = createClient();
+  const { data: transactions, error } = await supabase
+    .from("transactions")
+    .select("*")
+    .order("created_at", { ascending: true })
+    .returns<Transaction[]>();
 
   const groupedTransaction = groupAndSumTransactionsByDate(transactions);
 
