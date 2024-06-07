@@ -1,10 +1,15 @@
 import Trend from "@/components/trend";
 import { TrendEnum } from "@/lib/constants/constants";
-import { API_HOST } from "@/lib/constants/types";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function TrendDashboard({ type }: { type: TrendEnum }) {
-  const response = await fetch(`${API_HOST}/trends/${type}`);
-  const { amount, prevAmount } = await response.json();
+  const supabase = createClient()
+  let { data, error } = await supabase
+    .rpc('calculate_total', {
+      type_arg: type
+    })
+  if (error) throw new Error("Could not fetch the trend data")
+  const amount = data ?? 0
 
-  return <Trend type={type} amount={amount} prevAmount={prevAmount} />;
+  return <Trend type={type} amount={amount} prevAmount={amount - 500} />;
 }

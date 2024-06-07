@@ -5,9 +5,8 @@ import FormError from "@/components/form-error";
 import Input from "@/components/input";
 import Label from "@/components/label";
 import Select from "@/components/select";
-import { purgeTransactionListCache } from "@/lib/actions";
+import { createTransaction } from "@/lib/actions";
 import { Categories, TrendEnum } from "@/lib/constants/constants";
-import { API_HOST } from "@/lib/constants/types";
 import { transactionSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -30,22 +29,16 @@ export default function TransactionForm() {
 
   const router = useRouter();
   const [isSaving, setSaving] = useState(false);
+  const [lastError, setLastError] = useState<unknown>();
 
   const onSubmit = async (data: any) => {
     setSaving(true);
+    setLastError(null);
     try {
-      await fetch(`${API_HOST}/transactions`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...data,
-          created_at: `${data.created_at}T00:00:00`,
-        }),
-      });
-      await purgeTransactionListCache();
+      await createTransaction(data);
       router.push("/dashboard");
+    } catch (error) {
+      setLastError(error);
     } finally {
       setSaving(false);
     }
@@ -104,6 +97,10 @@ export default function TransactionForm() {
           })}
         />
         <FormError error={errors.description} />
+      </div>
+
+      <div className="flex justify-between items-center">
+        {lastError ? <FormError error={lastError} /> : null}
       </div>
 
       <div className="flex justify-end">

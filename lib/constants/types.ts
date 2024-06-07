@@ -1,7 +1,5 @@
 import { TrendEnum } from "./constants";
 
-export const API_HOST = 'http://localhost:3100';
-
 export interface Transaction {
   id: string;
   amount: number;

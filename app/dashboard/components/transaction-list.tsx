@@ -1,7 +1,6 @@
 import TransactionItem from "@/components/transaction-item";
 import {
   GroupedTransactions,
-  API_HOST,
   Transaction,
 } from "../../../lib/constants/types";
 import TransactionSummaryItem from "@/components/transaction-summary-item";

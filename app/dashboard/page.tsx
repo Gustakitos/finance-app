@@ -7,9 +7,11 @@ import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 import { sizes, variants } from "@/lib/variants";
 import { TrendEnum } from "@/lib/constants/constants";
-import { createClient } from "@/lib/supabase/server";
+import { ErrorBoundary } from "react-error-boundary";
 
 export default function Dashboard() {
+  const trendValues = Object.values(TrendEnum);
+
   return (
     <>
       <section className="mb-8">
@@ -17,21 +19,13 @@ export default function Dashboard() {
       </section>
 
       <section className="mb-8 grid grid-cols-2 lg:grid-cols-4 gap-8">
-        <Suspense fallback={<TrendFallback />}>
-          <TrendDashboard type={TrendEnum.Income} />
-        </Suspense>
-
-        <Suspense fallback={<TrendFallback />}>
-          <TrendDashboard type={TrendEnum.Expense} />
-        </Suspense>
-
-        <Suspense fallback={<TrendFallback />}>
-          <TrendDashboard type={TrendEnum.Savings} />
-        </Suspense>
-
-        <Suspense fallback={<TrendFallback />}>
-          <TrendDashboard type={TrendEnum.Investment} />
-        </Suspense>
+        {trendValues.map(type => (
+          <ErrorBoundary key={type} fallback={<div className="text-red-500">Cannot fetch {type} trend data</div>}>
+            <Suspense fallback={<TrendFallback />}>
+              <TrendDashboard type={type} />
+            </Suspense>
+          </ErrorBoundary>
+        ))}
       </section>
 
       <section className="flex justify-between items-center mb-8">
