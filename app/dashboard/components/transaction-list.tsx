@@ -35,7 +35,7 @@ export default async function TransactionsList() {
   const { data: transactions, error } = await supabase
     .from("transactions")
     .select("*")
-    .order("created_at", { ascending: true })
+    .order("created_at", { ascending: false })
     .returns<Transaction[]>();
 
   const groupedTransaction = groupAndSumTransactionsByDate(transactions);

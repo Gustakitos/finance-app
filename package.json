@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^3.6.0",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.43.4",
+    "dotenv": "^16.4.5",
     "json-server": "^0.17.4",
     "lucide-react": "^0.378.0",
     "next": "14.2.3",
@@ -23,6 +24,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@tailwindcss/forms": "^0.5.7",
     "@types/node": "^20",
     "@types/react": "^18",
