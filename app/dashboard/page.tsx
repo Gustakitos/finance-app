@@ -7,6 +7,7 @@ import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 import { sizes, variants } from "@/lib/variants";
 import { TrendEnum } from "@/lib/constants/constants";
+import { createClient } from "@/lib/supabase/server";
 
 export default function Dashboard() {
   return (
