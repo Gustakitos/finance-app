@@ -1,12 +1,39 @@
+"use client";
+
 import TransactionItem from "@/components/transaction-item";
 import { Transaction } from "../../../lib/constants/types";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Separator from "@/components/separator";
-import { createClient } from "@/lib/supabase/server";
 import { groupAndSumTransactionsByDate } from "@/lib/utils/utils";
+import { useState } from "react";
+import { fetchTransactions } from "@/lib/actions";
+import Button from "@/components/button";
+import { VariantsEnum } from "@/lib/constants/constants";
 
-export default async function TransactionsList({ initialTransactions } :{ initialTransactions: Transaction[] | null; }) {
-  const groupedTransactions = groupAndSumTransactionsByDate(initialTransactions)
+// eslint-disable-next-line @next/next/no-async-client-component
+export default async function TransactionsList({
+  range,
+  initialTransactions,
+}: {
+  range: string;
+  initialTransactions: Transaction[] | null;
+}) {
+  const [transactions, setTransactions] = useState<Transaction[] | null>(
+    initialTransactions
+  );
+  const [offset, setOffset] = useState(initialTransactions?.length);
+
+  const groupedTransactions = groupAndSumTransactionsByDate(transactions);
+
+  const handleClick = async () => {
+    const nextTransactions = await fetchTransactions(range, offset, 10);
+    setOffset((prevValue) => (prevValue ? prevValue + 10 : 0));
+    setTransactions((prevTransactions) =>
+      prevTransactions && nextTransactions
+        ? [...prevTransactions, ...nextTransactions]
+        : []
+    );
+  };
 
   return (
     <div className="space-y-8">
@@ -25,6 +52,11 @@ export default async function TransactionsList({ initialTransactions } :{ initia
           </div>
         )
       )}
+      <div className="flex justify-center">
+        <Button variant={VariantsEnum.Ghost} onClick={handleClick}>
+          Load More
+        </Button>
+      </div>
     </div>
   );
 }
