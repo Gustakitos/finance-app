@@ -10,8 +10,13 @@ import { TrendEnum } from "@/lib/constants/constants";
 import { ErrorBoundary } from "react-error-boundary";
 import Range from "./components/range";
 
-export default function Dashboard() {
+export default function Dashboard({
+  searchParams,
+}: {
+  searchParams: { range: string };
+}) {
   const trendValues = Object.values(TrendEnum);
+  const range = searchParams?.range ?? "last30days";
 
   return (
     <>
@@ -23,10 +28,15 @@ export default function Dashboard() {
       </section>
 
       <section className="mb-8 grid grid-cols-2 lg:grid-cols-4 gap-8">
-        {trendValues.map(type => (
-          <ErrorBoundary key={type} fallback={<div className="text-red-500">Cannot fetch {type} trend data</div>}>
+        {trendValues.map((type) => (
+          <ErrorBoundary
+            key={type}
+            fallback={
+              <div className="text-red-500">Cannot fetch {type} trend data</div>
+            }
+          >
             <Suspense fallback={<TrendFallback />}>
-              <TrendDashboard type={type} />
+              <TrendDashboard type={type} range={range} />
             </Suspense>
           </ErrorBoundary>
         ))}
