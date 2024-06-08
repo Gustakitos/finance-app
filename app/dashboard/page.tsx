@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import TransactionsList from "./components/transaction-list";
 import TransactionListFallback from "./components/transaction-list-fallback";
 import TrendDashboard from "./components/trend";
 import TrendFallback from "./components/trend-fallback";
@@ -9,6 +8,7 @@ import { sizes, variants } from "@/lib/variants";
 import { TrendEnum } from "@/lib/constants/constants";
 import { ErrorBoundary } from "react-error-boundary";
 import Range from "./components/range";
+import TransactionListWrapper from "./components/transaction-list-wrapper";
 
 export default function Dashboard({
   searchParams,
@@ -19,15 +19,15 @@ export default function Dashboard({
   const range = searchParams?.range ?? "last30days";
 
   return (
-    <>
-      <section className="mb-8 flex justify-between items-center">
+    <div className="space-y-8">
+      <section className="flex justify-between items-center">
         <h1 className="text-4xl font-semibold">Summary</h1>
         <aside>
           <Range />
         </aside>
       </section>
 
-      <section className="mb-8 grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-8">
         {trendValues.map((type) => (
           <ErrorBoundary
             key={type}
@@ -54,8 +54,8 @@ export default function Dashboard({
       </section>
 
       <Suspense fallback={<TransactionListFallback />}>
-        <TransactionsList />
+        <TransactionListWrapper range={range} />
       </Suspense>
-    </>
+    </div>
   );
 }
