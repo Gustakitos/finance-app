@@ -12,6 +12,8 @@ interface BtnProps {
   type?: "button" | "submit" | "reset" | undefined;
 
   disabled?: boolean;
+
+  className?: string;
 }
 
 export default function Button(props: BtnProps) {
@@ -19,7 +21,7 @@ export default function Button(props: BtnProps) {
     <button
       {...props}
       onClick={props.onClick}
-      className={`${
+      className={`${props.className} ${
         props.variant ? variants[props.variant] : variants[VariantsEnum.Default]
       } 
     ${props.size ? sizes[props.size] : sizes[SizesEnum.base]}

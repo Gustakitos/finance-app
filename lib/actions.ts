@@ -59,3 +59,8 @@ export async function deleteTransaction(id: string) {
   if (error) throw new Error(`Could not delete the transaction ${id}`)
   revalidatePath('/dashboard')
 }
+
+
+export async function login(formData: any) {
+  console.log(formData)
+}
