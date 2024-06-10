@@ -5,7 +5,7 @@ import FormError from "@/components/form-error";
 import Input from "@/components/input";
 import Label from "@/components/label";
 import Select from "@/components/select";
-import { createTransaction } from "@/lib/actions";
+import { createTransaction, updateTransaction } from "@/lib/actions";
 import { Categories, TrendEnum } from "@/lib/constants/constants";
 import { transactionSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function TransactionForm() {
+export default function TransactionForm({ initialData }: any) {
   const trendValues = Object.values(TrendEnum);
   const categoryValues = Object.values(Categories);
 
@@ -25,17 +25,25 @@ export default function TransactionForm() {
   } = useForm({
     mode: "onTouched",
     resolver: zodResolver(transactionSchema),
+    defaultValues: initialData ?? {
+      created_at: new Date().toISOString().split("T")[0],
+    },
   });
 
   const router = useRouter();
   const [isSaving, setSaving] = useState(false);
   const [lastError, setLastError] = useState<unknown>();
+  const editing = Boolean(initialData);
 
   const onSubmit = async (data: any) => {
     setSaving(true);
     setLastError(null);
     try {
-      await createTransaction(data);
+      if (editing) {
+        await updateTransaction(initialData.id, data);
+      } else {
+        await createTransaction(data);
+      }
       router.push("/dashboard");
     } catch (error) {
       setLastError(error);
@@ -67,11 +75,7 @@ export default function TransactionForm() {
 
       <div>
         <Label className="mb-1">Date</Label>
-        <Input
-          {...register("created_at", {
-            required: "The date is required",
-          })}
-        />
+        <Input {...register("created_at")} disabled={editing} />
         <FormError error={errors.created_at} />
       </div>
 

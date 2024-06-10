@@ -9,7 +9,8 @@ export enum TrendEnum {
 export enum VariantsEnum {
   Default = 'default',
   Outline = 'outline',
-  Ghost = 'ghost'
+  Ghost = 'ghost',
+  Danger = 'danger'
 }
 
 export enum SizesEnum {

@@ -1,17 +1,30 @@
 import { useFormatCurrency } from "@/hooks/useFormatCurrency";
-import { HandCoins, Landmark, PiggyBank, Wallet } from "lucide-react";
+import {
+  HandCoins,
+  Landmark,
+  Pencil,
+  PiggyBank,
+  Wallet,
+} from "lucide-react";
 import { TrendEnum } from "../lib/constants/constants";
+import RemoveButton from "./remove-button";
+import { sizes, variants } from "@/lib/variants";
+import Link from "next/link";
 
 export default function TransactionItem({
+  id,
   type,
   category,
   description,
   amount,
+  onRemoved,
 }: {
+  id: string;
   type: TrendEnum;
   category: string;
   description: string;
   amount: number;
+  onRemoved: (id: string) => () => void;
 }) {
   const formattedAmount = useFormatCurrency(amount);
 
@@ -51,7 +64,15 @@ export default function TransactionItem({
 
       <div className="min-w-[70px] flex justify-end">{formattedAmount}</div>
 
-      <div className="min-w-[50px] flex justify-end">.....</div>
+      <div className="min-w-[100px] flex justify-end">
+        <Link
+          href={`/dashboard/transaction/${id}/edit`}
+          className={`${variants["ghost"]} ${sizes["xs"]}`}
+        >
+          <Pencil className="w-4 h-4" />
+        </Link>
+        <RemoveButton id={id} onRemoved={onRemoved} />
+      </div>
     </div>
   );
 }
