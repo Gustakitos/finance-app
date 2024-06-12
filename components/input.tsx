@@ -5,10 +5,10 @@ import { forwardRef } from "react";
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: InputType | string;
 }
-export default forwardRef(function Input(props: InputProps, ref) {
+export default forwardRef<HTMLInputElement, InputProps>(function Input(props: InputProps, ref) {
   const { type } = props;
 
-  const styleType = type && isEmpty(type) ? type : InputType.default;
+  const styleType = type && isEmpty(type) ? type as InputType : InputType.default;
 
   const styles = {
     checkbox:

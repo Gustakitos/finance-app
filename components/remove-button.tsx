@@ -1,3 +1,5 @@
+"use client"
+
 import { deleteTransaction } from "@/lib/actions";
 import Button from "./button";
 import { useState } from "react";

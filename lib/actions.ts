@@ -62,26 +62,33 @@ export async function deleteTransaction(id: string) {
 }
 
 
-export async function login(formData: any) {
-  const supabase = createClient()
-  const email = formData.get('email')
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      shouldCreateUser: true
+export async function login(prevState: {
+  message: string;
+}, formData: FormData) {
+  try {
+    const supabase = createClient();
+
+    const email = formData.get('email')!.toString();
+  
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        shouldCreateUser: true,
+        emailRedirectTo: 'http://localhost:3000/dashboard'
+      }
+    })
+    
+    if (error) {
+      return {
+        error: true,
+        message: 'Error authenticating!'
+      }
     }
-  })
-
-  console.log('error: ', error);
-
-  if (error) {
     return {
-      error: true,
-      message: 'Error authenticating!'
+      message: `Email sent to ${email}`
     }
-  }
-  return {
-    message: `Email sent to ${email}`
+  } catch (error) {
+    throw error;
   }
 }
 

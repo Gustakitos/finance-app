@@ -44,7 +44,7 @@ export default function Playground() {
         <div>
           <h2 className="mb-4 text-lg font-mono">TransactionItem</h2>
           <Separator />
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <TransactionItem
               type={TrendEnum.Income}
               description="Income"
@@ -69,7 +69,7 @@ export default function Playground() {
               amount={2000}
               category="Food"
             />
-          </div>
+          </div> */}
         </div>
 
         <div>
@@ -77,7 +77,7 @@ export default function Playground() {
             Transaction Summary Item +Transaction Summary Item
           </h2>
           <Separator />
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <TransactionSummaryItem date="2024-05-01" amount={3500} />
             <Separator />
 
@@ -105,7 +105,7 @@ export default function Playground() {
               amount={2000}
               category="Food"
             />
-          </div>
+          </div> */}
         </div>
 
         <div>

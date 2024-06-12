@@ -33,14 +33,15 @@ export default async function PageHeader({ className }: { className: string }) {
         <DarkModeToggle defaultTheme={theme} />
         {user ? (
           <>
-            <Button
-              variant={VariantsEnum.Ghost}
-              size={SizesEnum.sm}
-              className="flex items-center space-x-1"
+            <Link
+              href={"/dashboard/settings"}
+              className={`flex items-center space-x-1 ${
+                variants[VariantsEnum.Ghost]
+              } ${sizes[SizesEnum.sm]}`}
             >
               <CircleUser className="w-6 h-6" />
               <span>{user?.email}</span>
-            </Button>
+            </Link>
             <SignOutButton />
           </>
         ) : (
