@@ -21,9 +21,9 @@ export default function DarkModeToggle({
       onClick={toggleTheme}
     >
       {theme === "dark" ? (
-        <Moon className="w-4 h-4" />
+        <Moon className="w-6 h-6" />
       ) : (
-        <Sun className="w-4 h-4" />
+        <Sun className="w-6 h-6" />
       )}
     </Button>
   );

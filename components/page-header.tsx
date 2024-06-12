@@ -1,9 +1,24 @@
 import Link from "next/link";
 import DarkModeToggle from "./dark-mode-toggle";
 import useServerDarkMode from "@/hooks/useServerDarkMode";
+import { createClient } from "@/lib/supabase/server";
+import { sizes, variants } from "@/lib/variants";
+import Button from "./button";
+import { SizesEnum, VariantsEnum } from "@/lib/constants/constants";
+import { CircleUser, KeyRound } from "lucide-react";
+import SignOutButton from "./sign-out-button";
 
-export default function PageHeader({ className }: { className: string }) {
+export default async function PageHeader({ className }: { className: string }) {
   const theme = useServerDarkMode();
+
+  const supabase = createClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  console.log("user: ", user);
+  console.log("error get user: ", error);
 
   return (
     <header className={`flex justify-between items-start ${className}`}>
@@ -14,9 +29,25 @@ export default function PageHeader({ className }: { className: string }) {
         Finance app
       </Link>
 
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center">
         <DarkModeToggle defaultTheme={theme} />
-        <div>User Dropdown</div>
+        {user ? (
+          <>
+            <Button
+              variant={VariantsEnum.Ghost}
+              size={SizesEnum.sm}
+              className="flex items-center space-x-1"
+            >
+              <CircleUser className="w-6 h-6" />
+              <span>{user?.email}</span>
+            </Button>
+            <SignOutButton />
+          </>
+        ) : (
+          <Link href="/login" className={`${variants["ghost"]} ${sizes["sm"]}`}>
+            <KeyRound className="w-6 h-6" />
+          </Link>
+        )}
       </div>
     </header>
   );

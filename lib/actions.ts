@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "./supabase/server";
 import { Transaction } from "./constants/types";
 import { transactionSchema } from "./validation";
+import { redirect } from "next/navigation";
 
 export async function createTransaction(formData: Transaction) {
   const valid = transactionSchema.safeParse(formData).success;
@@ -62,5 +63,30 @@ export async function deleteTransaction(id: string) {
 
 
 export async function login(formData: any) {
-  console.log(formData)
+  const supabase = createClient()
+  const email = formData.get('email')
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      shouldCreateUser: true
+    }
+  })
+
+  console.log('error: ', error);
+
+  if (error) {
+    return {
+      error: true,
+      message: 'Error authenticating!'
+    }
+  }
+  return {
+    message: `Email sent to ${email}`
+  }
+}
+
+export async function signOut() {
+  const supabase = createClient()
+  await supabase.auth.signOut()
+  redirect('/login')
 }

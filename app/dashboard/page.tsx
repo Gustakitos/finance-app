@@ -9,6 +9,7 @@ import { TrendEnum } from "@/lib/constants/constants";
 import { ErrorBoundary } from "react-error-boundary";
 import Range from "./components/range";
 import TransactionListWrapper from "./components/transaction-list-wrapper";
+import { createClient } from "@/lib/supabase/server";
 
 export default function Dashboard({
   searchParams,
@@ -17,6 +18,9 @@ export default function Dashboard({
 }) {
   const trendValues = Object.values(TrendEnum);
   const range = searchParams?.range ?? "last30days";
+
+  // const supabase = createClient()
+  // console.log(supabase.auth.getUser().then((value) => value));
 
   return (
     <div className="space-y-8">

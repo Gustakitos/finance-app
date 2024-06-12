@@ -1,3 +1,5 @@
+"use client";
+
 import Button from "./button";
 import { useFormStatus } from "react-dom";
 import { Loader } from "lucide-react";
