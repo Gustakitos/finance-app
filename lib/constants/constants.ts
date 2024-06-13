@@ -23,6 +23,7 @@ export enum SizesEnum {
 export enum InputType {
   checkbox = 'checkbox',
   default = 'default',
+  file = 'file',
   text = 'text'
 }
 

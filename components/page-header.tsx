@@ -3,10 +3,10 @@ import DarkModeToggle from "./dark-mode-toggle";
 import useServerDarkMode from "@/hooks/useServerDarkMode";
 import { createClient } from "@/lib/supabase/server";
 import { sizes, variants } from "@/lib/variants";
-import Button from "./button";
 import { SizesEnum, VariantsEnum } from "@/lib/constants/constants";
-import { CircleUser, KeyRound } from "lucide-react";
+import { KeyRound } from "lucide-react";
 import SignOutButton from "./sign-out-button";
+import Avatar from "./avatar";
 
 export default async function PageHeader({ className }: { className: string }) {
   const theme = useServerDarkMode();
@@ -16,9 +16,6 @@ export default async function PageHeader({ className }: { className: string }) {
     data: { user },
     error,
   } = await supabase.auth.getUser();
-
-  console.log("user: ", user);
-  console.log("error get user: ", error);
 
   return (
     <header className={`flex justify-between items-start ${className}`}>
@@ -39,7 +36,7 @@ export default async function PageHeader({ className }: { className: string }) {
                 variants[VariantsEnum.Ghost]
               } ${sizes[SizesEnum.sm]}`}
             >
-              <CircleUser className="w-6 h-6" />
+              <Avatar /> 
               <span>{user?.email}</span>
             </Link>
             <SignOutButton />
