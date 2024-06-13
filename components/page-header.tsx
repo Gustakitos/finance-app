@@ -36,8 +36,8 @@ export default async function PageHeader({ className }: { className: string }) {
                 variants[VariantsEnum.Ghost]
               } ${sizes[SizesEnum.sm]}`}
             >
-              <Avatar /> 
-              <span>{user?.email}</span>
+              <Avatar />
+              <span>{user?.user_metadata?.fullName ?? user?.email}</span>
             </Link>
             <SignOutButton />
           </>

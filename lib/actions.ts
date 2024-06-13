@@ -118,28 +118,28 @@ export async function uploadAvatar(prevState: {
     }
   }
 
-    // Removing the old file
-    const { data: userData, error: userError } = await supabase.auth.getUser()
-    if (userError) {
+  // Removing the old file
+  const { data: userData, error: userError } = await supabase.auth.getUser()
+  if (userError) {
+    return {
+      error: true,
+      message: 'Something went wrong, try again'
+    }
+  }
+
+  const avatar = userData.user.user_metadata.avatar
+  if (avatar) {
+    const { error } = await supabase.storage
+      .from('avatars')
+      .remove([avatar])
+
+    if (error) {
       return {
         error: true,
         message: 'Something went wrong, try again'
       }
     }
-  
-    const avatar = userData.user.user_metadata.avatar
-    if (avatar) {
-      const { error } = await supabase.storage
-        .from('avatars')
-        .remove([avatar])
-  
-      if (error) {
-        return {
-          error: true,
-          message: 'Something went wrong, try again'
-        }
-      }
-    }
+  }
 
   const { error: dataUpdateError } = await supabase.auth
     .updateUser({
@@ -156,5 +156,29 @@ export async function uploadAvatar(prevState: {
 
   return {
     message: 'Updated the user avatar'
+  }
+}
+
+export async function updateSettings(prevState: {
+  message: string;
+}, formData: FormData) {
+  const supabase = createClient()
+  const { error } = await supabase.auth
+    .updateUser({
+      data: {
+        fullName: formData.get('fullName'),
+        defaultView: formData.get('defaultView')
+      }
+    })
+
+  if (error) {
+    return {
+      error: true,
+      message: 'Failed updating setting'
+    }
+  }
+
+  return {
+    message: 'Updated user settings'
   }
 }
